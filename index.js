@@ -12,9 +12,33 @@ app.get("/nueva-ruta", (req, res) =>{
 })
 
 app.get("/products", (req, res) =>{
+    res.json([
+        {
+            name: "Celular",
+            price: "7000"
+        },
+        {
+            name: "Computadora",
+            price: "20000"
+        },
+    ]
+)})
+
+app.get("/products/:id", (req, res)=>{  //:id   significa que es un paremetro
+    //const id = req.paramsa.id;
+    const {id} = req.params
     res.json({
-        name: "Celular",
-        price: "7000"
+        id,
+        name: "Computadora",
+        price: "20000"
+    })
+})
+
+app.get("/categories/:CategoryID/products/:ProductID", (req, res)=>{
+    const {CategoryID, ProductID} = req.params;
+    res.json({
+        CategoryID,
+        ProductID
     })
 })
 
