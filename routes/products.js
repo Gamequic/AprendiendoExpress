@@ -34,13 +34,40 @@ router.get("/:id", (req, res)=>{
 })
 
 
-//Recivir peticiones por post
 
-router.post("/", (req, res) => {
+router.post("/", (req, res) => {    //Recibir peticiones por post
     const body = req.body;
     res.json({
         message: "created",
         data: body
+    })
+})
+
+router.patch("/:id", (req, res) => {    //No te obliga a enviar todo para actualizar una cosa, solo te pide lo que cambiaras
+    const { id } = req.params
+    const body = req.body;
+    res.json({
+        message: "update",
+        data: body,
+        id,
+    })
+})
+
+router.put("/:id", (req, res) => {    //Es necesario enviar el objeto completo aunque no lo vayas a modificar todo
+    const { id } = req.params
+    const body = req.body;
+    res.json({
+        message: "update",
+        data: body,
+        id,
+    })
+})
+
+router.delete("/:id", (req, res) => {    //Eliminar algo
+    const { id } = req.params
+    res.json({
+        message: "deleted",
+        id
     })
 })
 
