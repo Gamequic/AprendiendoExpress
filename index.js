@@ -4,6 +4,8 @@ const routerV1Api = require("./routes") //No se pone index.js porque ya sabe que
 const app = express();
 const port = 19132
 
+app.use(express.json()) //Permite leer las peteciones por JSON
+
 app.get("/", (req, res)=>{
     res.send("Hello world")
 });
