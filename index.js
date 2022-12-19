@@ -1,6 +1,6 @@
 const express = require("express")
 const routerV1Api = require("./routes") //No se pone index.js porque ya sabe que lo tiene que buscar en automatico
-const { logError, errorHandler } = require("./MiddleWares/errorHandler")
+const { logError, errorHandler, boomErrorHandler } = require("./MiddleWares/errorHandler")
 
 const app = express();
 const port = 19132
@@ -14,19 +14,33 @@ app.get("/nueva-ruta", (req, res) =>{
     res.send("Hola, soy una nueva ruta")
 })
 
+// //MiddleWare normal se ejecuta antes de los metodos
+// app.use((res, req, next) => {
+//   console.log("ES MI MIDDLEWARE PERRAS, Y FUE HECHO A LAS '" + Date.now() + "'")
+//   next()
+// })
+
+
 routerV1Api(app)  //Usar las cosas que divimos en diferentes archivos
 
+
+//MiddleWere de error se ejecutan despues de los metodos
 //Usar los MiddleWares que creamos en la carpeta de MiddleWare
-app.use(logError);
+app.use(logError);    //Se ejecutan en el orden que se ponen
+app.use(boomErrorHandler);
 app.use(errorHandler);
-/*
-Nota
-Un MiddleWare es software que se interpone entre el cliente y el servidor
-Sirve para gestionar permisos, capturar errores y cualquier funcion que se les pueda dar
-es solamente un filtro que esta entre el servidor y el cliente.
-Obviamente ser corre por parte del servidor
-*/
+
 
 app.listen(port, () => {
     console.log("Servidor corriendo en: " + port)
 })
+
+
+/*
+Carta de suicidio
+Hoy aprendi muchas cosas sobre los middlewares
+Lo que no aprendi fue:
+PORQUE MIERDA LOS MIDDLEWARE DE ERROR NO SE EJECUTAN CAUDNO SE TIENEN QUE EJECUTAR
+TODO ES UN MIDDLEWARE, SOLO QUE DEPENDE LA RUTA QUE SE HAGA
+UN MIDDLE WARE SE EJECUTA DE MANERA GLOBAL O DE MANERA ESPECIFICA PARA LOS ROUTES, LOS GLOBALES AFECTAN A LOS ROUTERS
+*/

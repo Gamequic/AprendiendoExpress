@@ -18,7 +18,7 @@ router.get('/filter', (req, res) => {
 
 router.get("/:id", async (req, res)=>{
     const { id } = req.params
-    const product = service.findOne(id)
+    const product = await service.findOne(id)
     res.json(product)
 })
 
