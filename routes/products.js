@@ -26,18 +26,18 @@ router.get("/:id", async (req, res, next)=>{
 
 router.post("/", async (req, res) => {    //Recibir peticiones por post
   const body = req.body;
-  const newProduct = await service.create(body)
-  res.status(201).json({newProduct})
+  const newProduct = await service.create(body);
+  res.status(201).json({newProduct});
 })
 
-router.patch("/:id", async (req, res) => {    //No te obliga a enviar todo para actualizar una cosa, solo te pide lo que cambiaras
+router.patch("/:id", async (req, res, next) => {    //No te obliga a enviar todo para actualizar una cosa, solo te pide lo que cambiaras
   try {
-    const { id } = req.params
+    const { id } = req.params;
     const body = req.body;
-    const product = await service.update(id, body)
-    res.json({product})
+    const product = await service.update(id, body);
+    res.json({product});
   } catch (error) {
-    res.status(404).json({ message : error.message })
+    next(error);
   }
 })
 
