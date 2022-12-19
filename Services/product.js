@@ -33,12 +33,12 @@ class ProductsServcice{
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(this.products)
-          }, 250)
+          }, 5000)
         })
     }
 
     async findOne(id){
-      const product =  this.products.find(item => item.id === id);
+      const product = this.products.find(item => item.id === id);
       if (!product){
         //throw boom.notFound("Product not found")
         throw new Error("Product not found")
