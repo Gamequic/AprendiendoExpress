@@ -16,11 +16,15 @@ router.get('/filter', (req, res) => {
     res.send("Yo soy un filter")
 })
 
-router.get("/:id", async (req, res)=>{
-    //const id = req.paramsa.id;
-    const { id } = req.params
-    const product = service.findOne(id)
-    res.json(product)
+router.get("/:id", async (req, res, next)=>{
+    try {
+      //const id = req.paramsa.id;
+      const { id } = req.params;
+      const product = service.findOne(id);
+      res.json(product);
+    } catch (error) {
+      next(error);
+    }
 })
 
 
