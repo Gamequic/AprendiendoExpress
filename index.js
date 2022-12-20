@@ -1,5 +1,6 @@
-const express = require("express")
-const routerApi = require("./routes")
+const express = require("express");
+const cors = require("cors");
+const routerApi = require("./routes");
 
 const { logError, errorHandler, boomErrorHandler } = require("./MiddleWares/errorHandler")
 
@@ -7,6 +8,18 @@ const app = express();
 const port = 19132
 
 app.use(express.json());
+
+const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      callback(null)
+    } else {
+      callback(new Error("Access denied"))
+    }
+  }
+}
+app.use(cors())   //Aqui habilitamos peticiones externas para todas las rutas, pero se puede solo para rutas en especifico
 
 app.get("/", (req, res)=>{
   res.send("Hello world");

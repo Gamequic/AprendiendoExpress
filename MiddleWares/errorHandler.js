@@ -1,6 +1,6 @@
 function logError (err, req, res, next) {
   console.log("Funcion MiddleWare LogError ejecutada")
-  //console.error(err);
+  console.error(err);
   next(err);
 }
 
@@ -16,7 +16,6 @@ function boomErrorHandler(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {
-  console.log('errorHandler');
   res.status(500).json({
     message: err.message,
     stack: err.stack

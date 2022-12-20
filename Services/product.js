@@ -1,5 +1,5 @@
 const faker = require('@faker-js/faker')
-const boom = require("@hapi/boom");   //Automaticamente relaciona con una funcion los status codes mas comunes que hay
+const boom = require("@hapi/boom");
 
 class ProductsServcice{
     constructor(){
@@ -11,8 +11,8 @@ class ProductsServcice{
         const limit = 100;
         for (let index = 0; index < limit; index++){
             this.products.push({
-                //id: faker.faker.datatype.uuid(),
-                id: String(index),
+                id: faker.faker.datatype.uuid(),
+                //id: String(index),
                 name: faker.faker.commerce.productName(),
                 price: parseInt(faker.faker.commerce.price(), 10),
                 image: faker.faker.image.imageUrl(),
